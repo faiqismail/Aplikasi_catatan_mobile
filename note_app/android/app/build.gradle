@@ -1,0 +1,62 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "com.example.note_app"
+    compileSdkVersion 34 // Ganti dengan versi terbaru jika diperlukan
+    buildToolsVersion "31.0.0" // Ganti dengan versi terbaru jika diperlukan
+    defaultConfig {
+        applicationId "com.example.note_app"
+        minSdkVersion 21 // Ganti dengan versi terbaru jika diperlukan
+        targetSdkVersion 31 // Ganti dengan versi terbaru jika diperlukan
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    implementation 'com.android.support:multidex:2.0.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0' // Pastikan sesuai dengan versi yang diharapkan
+    implementation 'androidx.lifecycle:lifecycle-common:2.4.0' // Ganti dengan versi terbaru jika diperlukan
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0' // Ganti dengan versi terbaru jika diperlukan
+    // Tambahkan dependensi lain sesuai kebutuhan Anda
+}
